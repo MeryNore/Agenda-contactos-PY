@@ -34,13 +34,13 @@ class AgendaContactos:
     def ejecutar_opcion(self, opcion):
         if opcion == 1:
             self.agregar_contacto()
-        if opcion == 2:
+        elif opcion == 2:
             self.acciones_contactos.mostrar_contactos()
-        if opcion == 3:
+        elif opcion == 3:
             self.buscar_contacto()
-        if opcion == 4:
+        elif opcion == 4:
             self.eliminar_contacto()
-        if opcion == 5:
+        elif opcion == 5:
             print("Saliendo de la agenda...")
             return True
         else:
@@ -53,7 +53,6 @@ class AgendaContactos:
         email = input("Ingrese el email del contacto: ")
         nuevo_contacto = Contacto(nombre, telefono, email)
         self.acciones_contactos.agregar_contacto(nuevo_contacto)
-
     
     def buscar_contacto(self):
         try:

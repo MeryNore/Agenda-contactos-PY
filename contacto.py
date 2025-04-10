@@ -32,18 +32,28 @@ class Contacto:
         Contacto.contador_contacto += 1
 
         # Asignar el ID de contacto al nuevo contacto
-        self.id_contacto = Contacto.contador_contacto
-        self.nombre = nombre
-        self.telefono = telefono
-        self.email = email
+        self.__id_contacto = Contacto.contador_contacto
+        self.__nombre = nombre
+        self.__telefono = telefono
+        self.__email = email
 
+    def get_id_contacto(self):
+        return self.__id_contacto
+    def get_nombre(self):   
+        return self.__nombre
+    def get_telefono(self):     
+        return self.__telefono
+    def get_email(self):    
+        return self.__email
 
     # Inicializar la lista de contactos
     def __str__(self):
-        return f'Contacto: id: {self.id_contacto}, Nombre: {self.nombre}, Telefono: {self.telefono}, Email: {self.email}]'
+        return f'Contacto: id: {self.__id_contacto}, Nombre: {self.__nombre}, Telefono: {self.__telefono}, Email: {self.__email}]'
     
-
     # Método para escribir el contacto en un archivo, el formato de cada linea es "id_contacto,nombre,telefono,email"
     def escribir_contacto(self):
-        return f'{self.id_contacto},{self.nombre},{self.telefono},{self.email}'
-
+        return f'{self.__id_contacto},{self.__nombre},{self.__telefono},{self.__email}'
+    
+    def eliminar_contacto(self):
+        Contacto.contador_contacto -= 1
+        self.__id_contacto = Contacto.contador_contacto

@@ -34,7 +34,16 @@ class AccionesContactos:
                     archivo.write(contacto.escribir_contacto() + "\n")
             print("Contacto guardado en el archivo.")
         except Exception as e:
-            print(f"Error al guardar el contacto: {e}")
+            print(f"Error al guardar el contacto en el archivo: {e}")
+    
+    # Método para eliminar un contacto de la lista de contactos y guardarlo en el archivo
+    def eliminar_contactos_archivo(self, contacto):
+        try:
+            with open(self.NOMBRE_ARCHIVO, "w") as archivo:
+                archivo.write(contacto.eliminar_contacto(contacto) + "\n")
+            print("Contacto eliminado del archivo.")
+        except Exception as e:
+            print(f"Error al eliminar el contacto en el archivo: {e}")
 
     def obtener_contactos(self):
         contactos = []
@@ -71,21 +80,26 @@ class AccionesContactos:
     
     def buscar_contacto(self, nombre):
         try:
+            if not self.contactos:
+                print("No hay contactos disponibles.")
             for contacto in self.contactos:
                 if contacto.nombre == nombre:
                     print(f"Contacto encontrado: {contacto}")
-            print("Contacto no encontrado.")
+            if not any(contacto.nombre == nombre for contacto in self.contactos):
+                print(f"Contacto {nombre} no encontrado.")
         except Exception as e:
             print(f"Error al buscar el contacto: {e}")
 
     def eliminar_contacto(self, nombre):
         try:
+            # Si no encuentra el nombre. Realizamos primero esta acción porque despues ya estaría borrado y no lo encontraría.
+            if not any(contacto.nombre == nombre for contacto in self.contactos):
+                print(f"Contacto {nombre} no encontrado.")
+            # Si encuentra el nombre
             for contacto in self.contactos:
                 if contacto.nombre == nombre:
                     self.contactos.remove(contacto)
+                    self.eliminar_contactos_archivo([contacto])
                     print(f"Contacto {contacto.nombre} eliminado.")
-                else:
-                    print(f"Contacto {nombre} no encontrado.")
-                    return
         except Exception as e:
             print(f"Error al eliminar el contacto: {e}")
